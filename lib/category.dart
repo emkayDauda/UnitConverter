@@ -21,7 +21,7 @@ class Category extends StatelessWidget {
             highlightColor: color[100],
             splashColor: color[300],
             borderRadius: _borderRadius,
-            onTap: () {},
+            onTap: () => _navigateToRoute(context, title, color),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -50,4 +50,44 @@ class Category extends StatelessWidget {
       ),
     );
   }
+}
+
+void _navigateToRoute(BuildContext context, String title, ColorSwatch color) {
+  if (Navigator.of(context).canPop()) Navigator.of(context).pop();
+
+  Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => Scaffold(
+                appBar: AppBar(
+                  title: Center(
+                    child: Text(
+                      title,
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                  ),
+                  backgroundColor: color[300],
+                ),
+                body: ListView.builder(
+                  itemBuilder: (context, index) => Card(
+                        color: color[300],
+                        child: ListTile(
+                          //   contentPadding: EdgeInsets.all(8.0),
+                          title: Center(
+                              child: Text(
+                            'Length Unit ${index + 1}',
+                            style: Theme.of(context).textTheme.title,
+                          )),
+                          subtitle: Center(
+                            child: Text(
+                              'Conversion: ${double.parse((index + 1).toString())}',
+                              style: Theme.of(context).textTheme.body1,
+                            ),
+                          ),
+                        ),
+                      ),
+                  itemCount: 10,
+                ),
+              ),
+        ),
+      );
 }
