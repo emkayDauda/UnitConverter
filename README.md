@@ -1,6 +1,9 @@
 # unit_converter
 
-A new Flutter project.
+Flutter app that allows users convert from one unit to another in various measurement categories.
+
+#Notice
+Still a work in progress, readme will be updated as app progresses along.
 
 ## Getting Started
 
