@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'converter.dart';
 
-class Category extends StatelessWidget {
+class Category extends StatefulWidget {
   final ColorSwatch color;
   final String title;
   final Icon icon;
-  const Category(
+
+  Category({@required this.icon, @required this.color, @required this.title});
+
+  @override
+  State<StatefulWidget> createState() => CategoryState(icon: icon, color: color, title: title);
+}
+
+class CategoryState extends State<Category> {
+  final ColorSwatch color;
+  final String title;
+  final Icon icon;
+  CategoryState(
       {@required this.icon, @required this.color, @required this.title});
 
   @override
@@ -57,37 +69,6 @@ void _navigateToRoute(BuildContext context, String title, ColorSwatch color) {
 
   Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => Scaffold(
-                appBar: AppBar(
-                  title: Center(
-                    child: Text(
-                      title,
-                      style: Theme.of(context).textTheme.title,
-                    ),
-                  ),
-                  backgroundColor: color[300],
-                ),
-                body: ListView.builder(
-                  itemBuilder: (context, index) => Card(
-                        color: color[300],
-                        child: ListTile(
-                          //   contentPadding: EdgeInsets.all(8.0),
-                          title: Center(
-                              child: Text(
-                            'Length Unit ${index + 1}',
-                            style: Theme.of(context).textTheme.title,
-                          )),
-                          subtitle: Center(
-                            child: Text(
-                              'Conversion: ${double.parse((index + 1).toString())}',
-                              style: Theme.of(context).textTheme.body1,
-                            ),
-                          ),
-                        ),
-                      ),
-                  itemCount: 10,
-                ),
-              ),
-        ),
+            builder: (context) => ConverterRoute(context, title, color)),
       );
 }
